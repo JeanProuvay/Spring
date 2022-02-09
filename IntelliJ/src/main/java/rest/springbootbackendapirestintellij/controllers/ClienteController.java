@@ -1,5 +1,8 @@
 package rest.springbootbackendapirestintellij.controllers;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -22,12 +25,16 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping("/clientes")
+    @ApiOperation("obtiene un listado de clientes")
+    @ApiResponse(code = 200, message = "OK")
     public List<Cliente> index(){
         return clienteService.findAll();
     }
 
     @GetMapping("/clientes/{id}")
-    public ResponseEntity<?> show(@PathVariable Long id){
+    @ApiOperation("obtiene un cliente")
+    @ApiResponse(code = 200, message = "OK")
+    public ResponseEntity<?> show(@ApiParam(value = "id del cliente", required=true, example="1") @PathVariable Long id){
         Cliente cliente = null;
         Map<String, Object> response = new HashMap<>();
         try{
